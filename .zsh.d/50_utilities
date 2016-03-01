@@ -1,0 +1,19 @@
+
+# password alias. There are two modes of operation:
+# makepasswd          without arguments, prints a single 16-char password
+# makepasswd <n>      with one argument, prints a single n-char password
+# makepasswd <n> <m>  with two arguments, prints a m passwords with n chars each
+function makepasswd {
+	if [ -z "$1" ]; then
+		LEN=16
+	else
+		LEN="$1"
+	fi
+	base64 < /dev/urandom |head -c$LEN
+	echo ""
+
+	if [ "$2" -gt 1 ]; then
+		makepasswd "$1" "$(($2-1))"
+	fi
+}
+

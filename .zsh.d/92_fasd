@@ -1,0 +1,5 @@
+if [ -x "`which fasd`" ]; then
+	eval "$(fasd --init auto)"
+
+	alias v='fasd -f -e gvim' # shortcut to vim
+fi

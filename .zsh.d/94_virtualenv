@@ -1,0 +1,12 @@
+
+VENV_DIR="$HOME/.local/share/virtualenv"
+
+#export WORKON_HOME=$HOME/.virtualenvs
+export WORKON_HOME="$VENV_DIR"
+export PROJECT_HOME="$HOME/Work"
+if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+	source /usr/bin/virtualenvwrapper.sh
+else
+	echo "Please install virtualenvwrapper"
+fi
+

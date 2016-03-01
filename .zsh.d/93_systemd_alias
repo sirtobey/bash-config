@@ -1,0 +1,3 @@
+if [ `whoami` != 'root' ]; then
+	alias systemctl="systemctl --user"
+fi

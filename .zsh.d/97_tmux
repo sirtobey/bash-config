@@ -1,0 +1,56 @@
+function _tmux_running() {
+	# wtf tmux notices if stdout is /dev/null
+	# and writes to terminal nonetheless
+	tmux list-sessions 2>&1 | grep -q -v 'failed to connect'
+	return $?
+}
+
+function _tmux_has_session() {
+	sess="$1"
+	tmux list-sessions 2>&1 | grep "$sess"
+	return $?
+}
+
+function _tmux_default_session() {
+	tmux list-sessions |cut -f1 -d: | head -n1
+}
+
+function tm() {
+	sess="$1"
+	if [ "$sess" = "" ]; then
+		if _tmux_running; then
+			tmux -2 attach-session -t "$(_tmux_default_session)"
+		else
+			tmux -2 new -s "default"
+		fi
+	elif [ "$sess" = '-h' -o "$sess" = '--help' ]; then
+		echo "Usage: tm [-h|--help|-l|--list|session-name]"
+		echo ""
+		echo "If you pass a session name to tm, then a session with"
+		echo "that name will be created (if it does not exist yet),"
+		echo "or, if a session with that name already exist, it will"
+		echo "be attached."
+		echo ""
+		echo "The -l or --list parameter lists the currently active"
+		echo "sessions within tmux"
+		echo ""
+		echo "The -h or --help parameter shows this help text."
+		echo ""
+
+	elif [ "$sess" = '-l' -o "$sess" = '--list' ]; then
+		if _tmux_running; then
+			echo "# The following sessions are available: "
+			echo ""
+			tmux list-sessions |cut -f1 -d: |sed -e 's/^/  * /'
+		else
+			echo "# No sessions active"
+		fi
+	elif _tmux_has_session "$sess"; then
+		tmux attach-session -t "$sess"
+	else
+		tmux -2 new -s "$sess"
+	fi
+}
+
+
+alias tmux='TERM=screen-256color tmux -2'

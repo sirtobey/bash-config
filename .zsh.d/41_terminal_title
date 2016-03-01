@@ -1,0 +1,5 @@
+# Change the window title of X terminals 
+typeset -ga precmd_functions
+precmd_window_title () {print -Pn "\e]0;%n@%M: %~\a"}
+precmd_functions+='precmd_window_title'
+

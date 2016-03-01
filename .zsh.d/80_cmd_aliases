@@ -1,0 +1,14 @@
+# Aliases
+#alias cd=pushd
+alias dirs="dirs -v"
+
+# Freebsd's ls works a bit different - no --color etc.
+if [ ! -f /etc/freebsd-update.conf ]; then
+	alias ll="ls -lsh"
+	alias la="ls -a"
+	alias ls="ls --color=auto"
+	alias grep="grep --color=auto"
+
+fi
+
+alias "info"="info --vi-keys"

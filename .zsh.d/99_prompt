@@ -1,0 +1,57 @@
+# Wheeee better prompt
+
+typeset -ga precmd_functions
+setopt prompt_subst
+
+#PR_FILLBAR=""
+#
+#PROMPT_LEFT_PART='%F{6}%n%F{7}@%F{6}%m%f %l ${vcs_info_msg_0_} %F{7}level %L%f'
+#PROMPT_LEFT_PART_NOCOLOR='%n@%m %l ${vcs_info_msg_0_} level %L'
+#PROMPT_RIGHT_PART='%D{%Y-%m-%d %H:%M:%S}'
+
+#precmd_prepare_prompt() {
+#    local TERMWIDTH
+#    (( TERMWIDTH = ${COLUMNS} - 1 ))
+#
+#    PR_HBAR=" "
+#
+#    # TODO: figure out how to calculate this offset
+#    local vcs_info_width_adjust=45
+#    local RENDERED_PROMPT_LEFT
+#    local RENDERED_PROMPT_RIGHT
+#    RENDERED_PROMPT_LEFT=$(print -P "$PROMPT_LEFT_PART_NOCOLOR")
+#    RENDERED_PROMPT_RIGHT=$(print -P "$PROMPT_RIGHT_PART")
+#
+#
+#    local size_left=${#RENDERED_PROMPT_LEFT}
+#
+#    # rendered datetime is known length
+#    local size_right=${#RENDERED_PROMPT_RIGHT}
+#
+#    if [[ "$size_left + $size_right - $vcs_info_width_adjust" -gt $TERMWIDTH ]]; then
+#	PR_FILLBAR=""
+#    else
+#	local fillbar_size
+#	((fillbar_size=$TERMWIDTH - ($size_left + $size_right - $vcs_info_width_adjust)))
+#	#echo "fillbar: $fillbar_size:  tw=$TERMWIDTH, sl=$size_left, sr=$size_right"
+#	PR_FILLBAR="\${(l.$fillbar_size..${PR_HBAR}.)}"
+#    fi
+#}
+#
+#precmd_functions+='precmd_prepare_prompt'
+
+# Experimental
+# trap_winch() {
+# 	precmd_prepare_prompt
+# 	print -P "\n$PROMPT"
+# }
+# 
+# trap trap_winch WINCH
+
+#export PROMPT="${PROMPT_LEFT_PART}\${(e)PR_FILLBAR}${PROMPT_RIGHT_PART}
+#"
+#
+#export PROMPT='%F{6}%n%F{7}@%F{6}%m%f %~ %(?..%F{1}E:%?%f )%# '
+export PROMPT='%F{6}%n%F{7}@%F{6}%m%f %(5~.…%4~.%4~) %(?..%F{1}E:%?%f )%# '
+
+export RPROMPT='${vcs_info_msg_0_}'

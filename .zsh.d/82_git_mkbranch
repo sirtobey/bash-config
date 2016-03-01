@@ -1,0 +1,8 @@
+
+function git-mkbranch {
+	NEW_BRANCH=$1
+	CURRENT_BRANCH=`git branch | awk '{print $2}'`
+	git push origin "$CURRENT_BRANCH:$NEW_BRANCH"
+	git checkout "origin/$NEW_BRANCH" -b "$NEW_BRANCH"
+}
+
